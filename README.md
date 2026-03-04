@@ -67,11 +67,11 @@ alerts:
   disk: 90                    # Alert when Disk > 90%
 
 slack:
-  enabled: true
+  enabled: false
   webhook_url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
 
 email:
-  enabled: true
+  enabled: false
   smtp_host: smtp.gmail.com
   smtp_port: 587
   username: you@gmail.com
