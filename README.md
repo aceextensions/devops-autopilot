@@ -30,7 +30,7 @@ A lightweight, CLI-first DevOps monitoring and alerting tool built in Go. Monito
 ### Build from Source
 
 ```bash
-git clone https://github.com/your-org/devops-autopilot.git
+git clone https://github.com/aceextensions/devops-autopilot.git
 cd devops-autopilot
 go mod tidy
 go build -o devops-autopilot .
@@ -236,8 +236,8 @@ sudo ./devops-autopilot service uninstall
         ▼               ▼               ▼
 ┌──────────────┐ ┌─────────────┐ ┌────────────────┐
 │   Collector  │ │Alert Engine │ │  Notifier      │
-│  system.go   │ │  engine.go  │ │  slack.go      │
-│  docker.go   │ │             │ │  email.go      │
+│  aceextensions │ │aceextensions│ │  aceextensions │
+│   /collector │ │/alertengine │ │    /notifier   │
 └──────────────┘ └─────────────┘ └────────────────┘
         │
         ▼
@@ -252,11 +252,9 @@ sudo ./devops-autopilot service uninstall
 | Package | Role |
 |---|---|
 | `internal/config` | Loads `config.yaml`, applies env var overrides |
-| `internal/collector/system.go` | Reads CPU/Memory/Disk/Load via `gopsutil` |
-| `internal/collector/docker.go` | Queries Docker daemon socket for container states |
-| `internal/alert/engine.go` | Compares metrics to thresholds, produces alert list |
-| `internal/notifier/slack.go` | HTTP POST to Slack webhook |
-| `internal/notifier/email.go` | SMTP email dispatch |
+| `internal/collector/*` | Thin wrappers around `github.com/aceextensions/collector` |
+| `internal/alert/*` | Configures and delegates to `github.com/aceextensions/alertengine` |
+| `internal/notifier/*` | Thin wrappers around `github.com/aceextensions/notifier` |
 | `internal/report/builder.go` | Formats all data into readable ASCII report |
 | `internal/service/manager.go` | Wraps daemon lifecycle using `kardianos/service` |
 
@@ -326,12 +324,12 @@ devops-autopilot/
 └── internal/
     ├── config/loader.go         # Config loading
     ├── collector/
-    │   ├── system.go            # System metrics
-    │   └── docker.go            # Docker metrics
-    ├── alert/engine.go          # Threshold evaluation
+    │   ├── system.go            # Wrapper for aceextensions/collector/system
+    │   └── docker.go            # Wrapper for aceextensions/collector/docker
+    ├── alert/engine.go          # Wrapper for aceextensions/alertengine
     ├── notifier/
-    │   ├── slack.go             # Slack alerts
-    │   └── email.go             # Email alerts
+    │   ├── slack.go             # Wrapper for aceextensions/notifier/slack
+    │   └── email.go             # Wrapper for aceextensions/notifier/email
     ├── report/builder.go        # Report formatting
     └── service/manager.go       # OS service lifecycle
 ```
