@@ -1,0 +1,6 @@
+devops-autopilot
+devops-autopilot.exe
+alertengine-pkg/
+collector-pkg/
+notifier-pkg/
+.DS_Store
