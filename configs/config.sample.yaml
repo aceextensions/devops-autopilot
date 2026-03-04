@@ -1,0 +1,21 @@
+server_name: prod-01
+
+alerts:
+  cpu: 80
+  memory: 85
+  disk: 90
+
+slack:
+  enabled: false
+  webhook_url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+
+email:
+  enabled: false
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+  username: you@gmail.com
+  password: your_app_password
+  to: admin@yourcompany.com
+
+monitor:
+  interval_seconds: 60
